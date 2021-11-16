@@ -1,0 +1,5 @@
+.sticky {
+    position: fixed;
+    top: 15rem;
+    right: 0;
+}

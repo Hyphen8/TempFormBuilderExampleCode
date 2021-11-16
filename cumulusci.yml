@@ -1,0 +1,25 @@
+minimum_cumulusci_version: '3.34.1'
+project:
+    name: H8DynamicForms
+    package:
+        name: H8DynamicForms
+        api_version: '50.0'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/H8DynamicForms/tests
+            options:
+                outputdir: robot/H8DynamicForms/results
+
+    robot_testdoc:
+        options:
+            path: robot/H8DynamicForms/tests
+            output: robot/H8DynamicForms/doc/H8DynamicForms_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75

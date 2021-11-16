@@ -1,0 +1,121 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 05-13-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   10/05/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_3-of-4">
+            <template if:true={isLoaded}>
+                <lightning-tabset>
+                    <template for:each={formPages} for:item="page">
+                        <lightning-tab key={page.pageNumber} label={page.pageNumber}>
+                            <c-form-builder-page allow-delete-page={allowDeletePage} page={page} ondeletepage={handlePageDelete} onsectiondeleted={handleSectionDeleted}></c-form-builder-page>  
+                        </lightning-tab>
+                    </template>
+                </lightning-tabset>
+            </template>
+        </div>
+
+        <template if:false={isLoaded}>
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning-spinner
+                    alternative-text="Loading..." variant="brand">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        
+
+        <div class="slds-col slds-size_1-of-4 sticky">
+            <div class="slds-panel" aria-hidden="false">
+                <div class="slds-panel__body">
+                    
+                    <ul class="slds-welcome-mat__tiles slds-size_1-of-1">
+                        <li class="slds-welcome-mat__tile">
+                            <a class="slds-box slds-box_link slds-media" onclick={handleAddNewPage}>
+                                <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+                                    <div class="slds-welcome-mat__tile-figure">
+                                        <div class="slds-welcome-mat__tile-icon-container">
+                                            <lightning-icon icon-name="utility:add" alternative-text="Add New Page" title="Add New Page"></lightning-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-welcome-mat__tile-body">
+                                        <h3 class="slds-welcome-mat__tile-title">Add New Page</h3>
+                                        <p class="slds-welcome-mat__tile-description">Pages make the user experience better.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="slds-welcome-mat__tile">
+                            <a class="slds-box slds-box_link slds-media" onclick={handleAddSection}>
+                                <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+                                    <div class="slds-welcome-mat__tile-figure">
+                                        <div class="slds-welcome-mat__tile-icon-container">
+                                            <lightning-icon icon-name="utility:section" alternative-text="Add Section" title="Add Section"></lightning-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-welcome-mat__tile-body">
+                                        <h3 class="slds-welcome-mat__tile-title">Add Section</h3>
+                                        <p class="slds-welcome-mat__tile-description">Sections help organise questions.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="slds-welcome-mat__tile">
+                            <a class="slds-box slds-box_link slds-media" onclick={handleAddQuestion}>
+                                <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+                                    <div class="slds-welcome-mat__tile-figure">
+                                        <div class="slds-welcome-mat__tile-icon-container">
+                                            <lightning-icon icon-name="utility:question" alternative-text="Add Question" title="Add Question"></lightning-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-welcome-mat__tile-body">
+                                        <h3 class="slds-welcome-mat__tile-title">Add Question</h3>
+                                        <p class="slds-welcome-mat__tile-description">Good forms only asks what is needed.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="slds-welcome-mat__tile">
+                            <a class="slds-box slds-box_link slds-media" onclick={handleAddText}>
+                                <div class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center">
+                                    <div class="slds-welcome-mat__tile-figure">
+                                        <div class="slds-welcome-mat__tile-icon-container">
+                                            <lightning-icon icon-name="utility:type" alternative-text="Add Text" title="Add Text"></lightning-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-welcome-mat__tile-body">
+                                        <h3 class="slds-welcome-mat__tile-title">Add Text</h3>
+                                        <p class="slds-welcome-mat__tile-description">Support text improves the quality of submissions.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+
+        </div>
+    </div>
+
+
+    <c-form-add-text-modal pages={pagesPicklist} record-id={recordId} open-modal={openAddTextModal} onclosemodal={handleCloseAddTextModal} onclosesavemodal={handleCloseSaveAddTextModal}></c-form-add-text-modal>
+    <c-form-add-question-modal pages={pagesPicklist} record-id={recordId} open-modal={openAddQuestionModal} onclosemodal={handleCloseAddQuestionModal} onclosesavemodal={handleCloseSaveAddQuestionModal}></c-form-add-question-modal>
+    <c-form-add-section-modal pages={pagesPicklist} record-id={recordId} open-modal={openAddSectionModal} onclosemodal={handleCloseAddSectionModal} onclosesavemodal={handleCloseSaveAddSectionModal}></c-form-add-section-modal>
+    <c-form-add-page-modal pages={pagesPicklist} record-id={recordId} open-modal={openAddPageModal} onclosemodal={handleCloseAddPageModal} onclosesavemodal={handleCloseSaveAddPageModal}></c-form-add-page-modal>
+    
+</template>

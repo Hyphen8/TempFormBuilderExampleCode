@@ -1,0 +1,51 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 05-13-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   10/05/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+            <lightning-card>
+                <h1 slot="title"><lightning-icon icon-name="utility:page" alternative-text={pageTitle} size="xx-small" title={pageTitle}></lightning-icon> {pageTitle}</h1>
+                <lightning-button-group slot="actions">
+                    <lightning-button-menu alternative-text="Show menu" icon-name="utility:settings">
+                        <template if:true={allowDeletePage}>
+                            <lightning-menu-item label="Delete" value="delete" onclick={handleDeletePage}></lightning-menu-item>
+                            <lightning-menu-item label="Move" value="move" onclick={handleMove}></lightning-menu-item>
+                        </template>
+                        <template if:true={editTitle}>
+                            <lightning-menu-item label="Edit" value="edit" onclick={handleEdit}></lightning-menu-item>
+                        </template>
+                    </lightning-button-menu>
+                    <template if:false={editTitle}>
+                        <lightning-button variant="destructive" label="Cancel" onclick={handleCancel}></lightning-button>
+                        <lightning-button label="Save" onclick={handleSave}></lightning-button>
+                    </template>
+                </lightning-button-group>
+                <div class="slds-p-horizontal_small">
+                    <template if:false={editTitle}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input type="text" label="Page Title" value={pageTitle} disabled={editTitle} oncommit={storeTitle}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input type="toggle" label="Display Page Title" checked={displayPageTitle} onchange={storeDisplayTitle} disabled={editTitle} message-toggle-active="Display Title" message-toggle-inactive="Hide Page Title"></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </div>
+            </lightning-card>
+            <template for:each={page.sections} for:item="section">
+                <div key={section.sectionId}>
+                    <c-form-builder-section section={section} allow-section-delete={currentPage.displayDeleteSectionButton} onsectiondeleted={handleSectionDeleted}></c-form-builder-section>
+                </div>
+            </template>
+
+  
+</template>

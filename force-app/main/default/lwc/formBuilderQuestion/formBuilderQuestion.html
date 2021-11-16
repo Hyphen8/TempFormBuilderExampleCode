@@ -1,0 +1,92 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 05-13-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   05-12-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <template if:true={isTextQuestion}>
+        <lightning-card>
+            <h1 slot="title"><lightning-icon icon-name="utility:type" alternative-text={question.title} size="xx-small" title={question.title}></lightning-icon> {question.title}</h1>
+            <lightning-button-group slot="actions">
+                <lightning-button-menu alternative-text="Show menu" icon-name="utility:settings">
+                    <lightning-menu-item label="Delete" value="delete" onclick={handleDelete} ></lightning-menu-item>
+                    <lightning-menu-item label="Move" value="move" onclick={handleMove} ></lightning-menu-item>
+                    <template if:false={isTextEdit}>
+                        <lightning-menu-item label="Edit" value="edit" onclick={handleEdit} ></lightning-menu-item>
+                    </template>
+                </lightning-button-menu>
+                <template if:true={isTextEdit}>
+                    <lightning-button variant="destructive" label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button label="Save" onclick={handleTextSave}></lightning-button>
+                </template>
+            </lightning-button-group>
+            <div class="slds-p-horizontal_small">
+                <template if:false={isTextEdit}>
+                    <template if:true={isHeadingLarge}>
+                        <c-form-output-text-heading-large text-value={question.textHeading}></c-form-output-text-heading-large>
+                    </template>
+                    <template if:true={isHeadingMedium}>
+                        <c-form-output-text-heading-medium text-value={question.textHeading}></c-form-output-text-heading-medium>
+                    </template>
+                    <template if:true={isHeadingSmall}>
+                        <c-form-output-text-heading-small text-value={question.textHeading}></c-form-output-text-heading-small>
+                    </template>
+                    <template if:true={isNormal}>
+                        <c-form-output-text-normal text-value={question.textHeading}></c-form-output-text-normal>
+                    </template>
+                    <template if:true={isRichText}>
+                        <c-form-output-text-rich text-value={question.textRichText}></c-form-output-text-rich>
+                    </template>
+                </template>
+                <template if:true={isTextEdit}>
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item padding="around-small" size="12">
+                            <lightning-input type="text" label="Text Title" value={question.title} oncommit={storeTitle}></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <template if:true={isHeadingLarge}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input type="text" value={question.textHeading}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                    <template if:true={isHeadingMedium}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input type="text" value={question.textHeading}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                    <template if:true={isHeadingSmall}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input type="text" value={question.textHeading}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                    <template if:true={isNormal}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-textarea value={question.textHeading}></lightning-textarea>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                    <template if:true={isRichText}>
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-input-rich-text value={question.textRichText}></lightning-input-rich-text>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+    
+</template>
